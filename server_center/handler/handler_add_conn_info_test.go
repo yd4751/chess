@@ -8,7 +8,7 @@ import (
 	"github.com/gochenzl/chess/pb/center"
 	"github.com/gochenzl/chess/server_center/conn_info"
 	"github.com/gochenzl/chess/util/rpc"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func TestHandleAddConnInfo(t *testing.T) {
@@ -22,7 +22,7 @@ func TestHandleAddConnInfo(t *testing.T) {
 		addClient(clients[i])
 	}
 
-	req := &center.AddConnInfoReq{&center.ConnInfo{10000, 1, 1}}
+	req := &center.AddConnInfoReq{Info: &center.ConnInfo{Userid: 10000, Gateid: 1, Connid: 1}}
 	client := &bytes.Buffer{}
 	addClient(client)
 	HandleAddConnInfo(client, req)
@@ -48,11 +48,11 @@ func TestHandleAddConnInfo(t *testing.T) {
 		}
 	}
 
-	if !conn_info.Exist(center.ConnInfo{10000, 1, 1}) {
+	if !conn_info.Exist(center.ConnInfo{Userid: 10000, Gateid: 1, Connid: 1}) {
 		t.Errorf("add conn info fail")
 	}
 
-	req = &center.AddConnInfoReq{&center.ConnInfo{20000, 1, 1}}
+	req = &center.AddConnInfoReq{Info: &center.ConnInfo{Userid: 20000, Gateid: 1, Connid: 1}}
 	HandleAddConnInfo(client, req)
 
 	for i := 0; i < len(clients); i++ {
@@ -79,7 +79,7 @@ func TestHandleAddConnInfo(t *testing.T) {
 		}
 	}
 
-	if !conn_info.Exist(center.ConnInfo{20000, 1, 1}) {
+	if !conn_info.Exist(center.ConnInfo{Userid: 20000, Gateid: 1, Connid: 1}) {
 		t.Errorf("add conn info fail")
 	}
 }

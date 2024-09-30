@@ -7,7 +7,7 @@ import (
 	"github.com/gochenzl/chess/game_ddz/pb_client"
 	"github.com/gochenzl/chess/game_ddz/user"
 	"github.com/gochenzl/chess/util/log"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func HandleSendMessage(userid uint32, connid uint32, msgBody []byte) {

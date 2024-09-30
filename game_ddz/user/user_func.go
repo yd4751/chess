@@ -2,7 +2,7 @@ package user
 
 import (
 	"github.com/gochenzl/chess/game_ddz/pb_user"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func (ui *UserInfo) getInfo(flag int) proto.Message {

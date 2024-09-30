@@ -3,7 +3,7 @@ package handler
 import (
 	"github.com/gochenzl/chess/common"
 	"github.com/gochenzl/chess/game/server"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 // msgid

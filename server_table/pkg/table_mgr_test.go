@@ -12,7 +12,7 @@ import (
 	"github.com/gochenzl/chess/pb/table"
 	"github.com/gochenzl/chess/util/redis"
 	"github.com/gochenzl/chess/util/redis_cli"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func TestMain(m *testing.M) {

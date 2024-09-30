@@ -3,7 +3,7 @@ package redis_cli
 import (
 	"time"
 
-	"gopkg.in/redis.v3"
+	"github.com/go-redis/redis"
 )
 
 var dbClient *redis.Client
@@ -48,11 +48,11 @@ func HGet(key string, field string) (string, error) {
 	return dbClient.HGet(key, field).Result()
 }
 
-func Scan(cursor int64, match string, count int64) (int64, []string, error) {
+func Scan(cursor uint64, match string, count int64) ([]string, uint64, error) {
 	return dbClient.Scan(cursor, match, count).Result()
 }
 
-func Pipeline() *redis.Pipeline {
+func Pipeline() redis.Pipeliner {
 	return dbClient.Pipeline()
 }
 

@@ -13,10 +13,10 @@ import (
 func TestHandleGetAllConnInfo(t *testing.T) {
 	conn_info.InitTest()
 	var connInfos []center.ConnInfo
-	connInfos = append(connInfos, center.ConnInfo{10000, 1, 1})
-	connInfos = append(connInfos, center.ConnInfo{20000, 1, 2})
-	connInfos = append(connInfos, center.ConnInfo{30000, 2, 1})
-	connInfos = append(connInfos, center.ConnInfo{40000, 2, 2})
+	connInfos = append(connInfos, center.ConnInfo{Userid: 10000, Gateid: 1, Connid: 1})
+	connInfos = append(connInfos, center.ConnInfo{Userid: 20000, Gateid: 1, Connid: 2})
+	connInfos = append(connInfos, center.ConnInfo{Userid: 30000, Gateid: 2, Connid: 1})
+	connInfos = append(connInfos, center.ConnInfo{Userid: 40000, Gateid: 2, Connid: 2})
 
 	for i := 0; i < len(connInfos); i++ {
 		conn_info.Add(connInfos[i])
@@ -43,7 +43,7 @@ func TestHandleGetAllConnInfo(t *testing.T) {
 	for i := 0; i < len(resp.Infos); i++ {
 		var find bool
 		for j := 0; j < len(connInfos); j++ {
-			if *(resp.Infos[i]) == connInfos[j] {
+			if resp.Infos[i].String() == connInfos[j].String() {
 				find = true
 				break
 			}

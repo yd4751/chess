@@ -8,7 +8,7 @@ import (
 	"github.com/gochenzl/chess/pb/table"
 	"github.com/gochenzl/chess/util/log"
 	"github.com/gochenzl/chess/util/rpc"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func handleEnterRoom(req proto.Message) proto.Message {

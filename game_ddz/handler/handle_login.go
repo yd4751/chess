@@ -11,7 +11,7 @@ import (
 	"github.com/gochenzl/chess/util/log"
 	"github.com/gochenzl/chess/util/redis_cli"
 	"github.com/gochenzl/chess/util/services"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func HandleLogin(userid uint32, connid uint32, msgBody []byte) {

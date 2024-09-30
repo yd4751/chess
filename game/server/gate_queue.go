@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"time"
 
-	"gopkg.in/redis.v3"
+	"github.com/go-redis/redis"
 
 	"github.com/gochenzl/chess/codec"
 	"github.com/gochenzl/chess/common"

@@ -5,7 +5,7 @@ import (
 
 	"github.com/gochenzl/chess/pb/center"
 	"github.com/gochenzl/chess/server_center/conn_info"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 var delConnInfoResp *center.DelConnInfoResp = &center.DelConnInfoResp{}
@@ -19,7 +19,7 @@ func HandleDelConnInfo(client io.Writer, req proto.Message) error {
 	gateid := delConnInfoReq.Gateid
 	connid := delConnInfoReq.Connid
 	if userid, ok := conn_info.Del(gateid, connid); ok {
-		sendDelConnInfoNotify(&center.ConnInfo{userid, gateid, connid}, client)
+		sendDelConnInfoNotify(&center.ConnInfo{Userid: userid, Gateid: gateid, Connid: connid}, client)
 	}
 
 	return sendResp(client, delConnInfoResp)

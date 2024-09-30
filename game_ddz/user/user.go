@@ -3,10 +3,10 @@ package user
 import (
 	"strconv"
 
+	"github.com/go-redis/redis"
 	"github.com/gochenzl/chess/game_ddz/pb_user"
 	"github.com/gochenzl/chess/util/log"
-	"github.com/golang/protobuf/proto"
-	"gopkg.in/redis.v3"
+	"google.golang.org/protobuf/proto"
 )
 
 // user flag define

@@ -14,7 +14,7 @@ import (
 	"github.com/gochenzl/chess/util/conf"
 	"github.com/gochenzl/chess/util/log"
 	"github.com/gochenzl/chess/util/rpc"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 var config struct {
@@ -98,7 +98,7 @@ func handleConn(conn net.Conn) {
 		}
 
 		name := proto.MessageName(req)
-		log.Info("receive request %s: %s", name, req.String())
+		log.Info("receive request %s:", name)
 
 		switch name {
 		case "center.AddConnInfoReq":

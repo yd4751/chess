@@ -6,9 +6,10 @@ import (
 	"fmt"
 	"hash/adler32"
 	"io"
-	"reflect"
 
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/reflect/protoreflect"
+	"google.golang.org/protobuf/reflect/protoregistry"
 )
 
 // 4字节长度，包括本字段
@@ -24,7 +25,7 @@ var errChecksum = errors.New("checksum error")
 
 func EncodePb(w io.Writer, pb proto.Message) error {
 	name := proto.MessageName(pb)
-
+	fmt.Println(name)
 	msgBody, err := proto.Marshal(pb)
 	if err != nil {
 		return err
@@ -33,7 +34,7 @@ func EncodePb(w io.Writer, pb proto.Message) error {
 	return Encode(w, name, msgBody)
 }
 
-func Encode(w io.Writer, name string, msgBody []byte) error {
+func Encode(w io.Writer, name protoreflect.FullName, msgBody []byte) error {
 	totalSize := 4 + 2 + len(name) + 1 + len(msgBody) + 4
 	checksum := adler32.New()
 
@@ -72,7 +73,7 @@ func Encode(w io.Writer, name string, msgBody []byte) error {
 	return nil
 }
 
-func Decode(r io.Reader) (name string, msgBody []byte, err error) {
+func Decode(r io.Reader) (name protoreflect.FullName, msgBody []byte, err error) {
 	var lenBuf [4]byte
 	if _, err = io.ReadFull(r, lenBuf[:]); err != nil {
 		return
@@ -96,27 +97,27 @@ func Decode(r io.Reader) (name string, msgBody []byte, err error) {
 }
 
 func DecodePb(r io.Reader) (pb proto.Message, err error) {
-	var msgBody []byte
-	var name string
 
-	name, msgBody, err = Decode(r)
+	fullName, msgBody, err := Decode(r)
 	if err != nil {
 		return
 	}
 
-	rt := proto.MessageType(name)
-	if rt == nil {
-		err = errors.New(fmt.Sprintf("can't find proto message type for %s", name))
+	//proto.protoregistry.GlobalTypes.RegisterMessage(name, reflect.TypeOf((*proto.Message)(nil)).Elem())
+	//proto.protoregistry.GlobalTypes.FindMessageByName
+	rt, error := protoregistry.GlobalTypes.FindMessageByName(fullName)
+	if error != nil {
+		err = fmt.Errorf("can't find proto message type for %s", fullName)
 		return
 	}
 
-	pb = reflect.New(rt.Elem()).Interface().(proto.Message)
+	pb = rt.New().Interface()
 	err = proto.Unmarshal(msgBody, pb)
 
 	return
 }
 
-func decodeHelper(buf []byte) (name string, msgBody []byte, err error) {
+func decodeHelper(buf []byte) (name protoreflect.FullName, msgBody []byte, err error) {
 	bufSize := len(buf)
 	if bufSize-4 < minMsgSize {
 		err = errInvalidMsg
@@ -132,7 +133,7 @@ func decodeHelper(buf []byte) (name string, msgBody []byte, err error) {
 		return
 	}
 
-	name = string(buf[offset : offset+nameLen-1])
+	name = protoreflect.FullName(buf[offset : offset+nameLen-1])
 	offset += nameLen
 	if offset < bufSize-4 {
 		msgBody = buf[offset : bufSize-4]

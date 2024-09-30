@@ -5,7 +5,7 @@ import (
 
 	"github.com/gochenzl/chess/pb/center"
 	"github.com/gochenzl/chess/server_center/conn_info"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 var delConnInfoByGateidResp *center.DelConnInfoByGateidResp = &center.DelConnInfoByGateidResp{}

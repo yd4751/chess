@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"gopkg.in/redis.v3"
+	"github.com/go-redis/redis"
 )
 
 func TestServer(t *testing.T) {

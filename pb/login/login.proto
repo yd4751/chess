@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+option go_package = "./login" ;
 package login;
 
 message LoginReq

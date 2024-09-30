@@ -4,11 +4,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/go-redis/redis"
 	"github.com/gochenzl/chess/codec"
 	"github.com/gochenzl/chess/common"
 	"github.com/gochenzl/chess/server_gate/config"
 	"github.com/gochenzl/chess/util/log"
-	"gopkg.in/redis.v3"
 )
 
 func processMsgQueue() {

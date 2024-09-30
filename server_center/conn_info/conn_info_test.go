@@ -9,7 +9,7 @@ import (
 func TestAddConnInfo(t *testing.T) {
 	InitTest()
 
-	oldUserid, isNew := Add(center.ConnInfo{10000, 1, 1})
+	oldUserid, isNew := Add(center.ConnInfo{Userid: 10000, Gateid: 1, Connid: 1})
 	if oldUserid != 0 {
 		t.Errorf("add oldUserid=%d", oldUserid)
 	}
@@ -26,7 +26,7 @@ func TestAddConnInfo(t *testing.T) {
 	}
 
 	// 重复添加
-	oldUserid, isNew = Add(center.ConnInfo{10000, 1, 1})
+	oldUserid, isNew = Add(center.ConnInfo{Userid: 10000, Gateid: 1, Connid: 1})
 	if oldUserid != 10000 {
 		t.Errorf("add oldUserid=%d", oldUserid)
 	}
@@ -35,7 +35,7 @@ func TestAddConnInfo(t *testing.T) {
 	}
 
 	// 相同连接，不同玩家
-	oldUserid, isNew = Add(center.ConnInfo{10001, 1, 1})
+	oldUserid, isNew = Add(center.ConnInfo{Userid: 10001, Gateid: 1, Connid: 1})
 	if oldUserid != 10000 {
 		t.Errorf("add oldUserid=%d", oldUserid)
 	}
@@ -56,7 +56,7 @@ func TestAddConnInfo(t *testing.T) {
 	}
 
 	// 同一玩家，不同连接
-	oldUserid, isNew = Add(center.ConnInfo{10001, 1, 2})
+	oldUserid, isNew = Add(center.ConnInfo{Userid: 10001, Gateid: 1, Connid: 2})
 	if oldUserid != 0 {
 		t.Errorf("add oldUserid=%d", oldUserid)
 	}
@@ -84,7 +84,7 @@ func TestDelConnInfo(t *testing.T) {
 		t.Errorf("del not exist")
 	}
 
-	Add(center.ConnInfo{10000, 1, 1})
+	Add(center.ConnInfo{Userid: 10000, Gateid: 1, Connid: 1})
 	if _, ok := Del(1, 1); !ok {
 		t.Errorf("del exist")
 	}
@@ -104,11 +104,11 @@ func TestDelByGateidConnInfo(t *testing.T) {
 	var i uint32
 
 	for i = 1; i <= 10; i++ {
-		Add(center.ConnInfo{10000 + i, 1, 1 + i})
+		Add(center.ConnInfo{Userid: 10000 + i, Gateid: 1, Connid: 1 + i})
 	}
 
 	for i = 1; i <= 10; i++ {
-		Add(center.ConnInfo{20000 + i, 2, 1 + i})
+		Add(center.ConnInfo{Userid: 20000 + i, Gateid: 2, Connid: 1 + i})
 	}
 
 	DelByGateid(1)

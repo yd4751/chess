@@ -9,7 +9,7 @@ import (
 	"github.com/gochenzl/chess/pb/center"
 	"github.com/gochenzl/chess/util/log"
 	"github.com/gochenzl/chess/util/rpc"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 type Session struct {
@@ -72,7 +72,7 @@ CREATE_CONN:
 		name := proto.MessageName(pbMsg)
 
 		if name != "center.GetAllConnInfoResp" {
-			log.Info("receive %s: %s", name, pbMsg.String())
+			log.Info("receive %s", name)
 		} else {
 			log.Info("receive %s", name)
 		}

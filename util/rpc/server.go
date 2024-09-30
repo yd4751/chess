@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/gochenzl/chess/util/log"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 type Handler func(proto.Message) proto.Message
@@ -128,7 +128,7 @@ func (s *Server) handleConn(conn net.Conn) {
 			return
 		}
 
-		name := proto.MessageName(req)
+		name := string(proto.MessageName(req))
 
 		f, ok := s.handlers[name]
 		if !ok {

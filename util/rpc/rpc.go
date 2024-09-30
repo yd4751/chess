@@ -6,7 +6,7 @@ import (
 
 	"github.com/gochenzl/chess/util/buf_pool"
 	"github.com/gochenzl/chess/util/log"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 var remoteServers map[string]*connPoolInfo = make(map[string]*connPoolInfo)

@@ -7,11 +7,11 @@ import (
 	"github.com/gochenzl/chess/util/buf_pool"
 	"github.com/gochenzl/chess/util/log"
 	"github.com/gochenzl/chess/util/rpc"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func sendNewConnInfoNotify(info *center.ConnInfo, excludeClient io.Writer) {
-	notify := &center.NewConnInfoNotify{info}
+	notify := &center.NewConnInfoNotify{Info: info}
 
 	writer := buf_pool.Get()
 	defer buf_pool.Put(writer)
@@ -26,7 +26,7 @@ func sendNewConnInfoNotify(info *center.ConnInfo, excludeClient io.Writer) {
 }
 
 func sendDelConnInfoNotify(info *center.ConnInfo, excludeClient io.Writer) {
-	notify := &center.DelConnInfoNotify{info}
+	notify := &center.DelConnInfoNotify{Info: info}
 
 	writer := buf_pool.Get()
 	defer buf_pool.Put(writer)
@@ -41,7 +41,7 @@ func sendDelConnInfoNotify(info *center.ConnInfo, excludeClient io.Writer) {
 }
 
 func sendDelConnInfoByGateidNotify(gateid uint32, excludeClient io.Writer) {
-	notify := &center.DelConnInfoByGateidNotify{gateid}
+	notify := &center.DelConnInfoByGateidNotify{Gateid: gateid}
 
 	writer := buf_pool.Get()
 	defer buf_pool.Put(writer)

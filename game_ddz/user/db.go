@@ -3,7 +3,7 @@ package user
 import (
 	"time"
 
-	"gopkg.in/redis.v3"
+	"github.com/go-redis/redis"
 )
 
 // 这里使用支持redis协议的数据库，当然也可以改用其他的数据库

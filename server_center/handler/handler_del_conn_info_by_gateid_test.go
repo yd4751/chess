@@ -8,15 +8,15 @@ import (
 	"github.com/gochenzl/chess/pb/center"
 	"github.com/gochenzl/chess/server_center/conn_info"
 	"github.com/gochenzl/chess/util/rpc"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func TestHandleDelConnInfoByGateid(t *testing.T) {
 	conn_info.InitTest()
-	conn_info.Add(center.ConnInfo{10000, 1, 1})
-	conn_info.Add(center.ConnInfo{20000, 1, 2})
-	conn_info.Add(center.ConnInfo{30000, 2, 1})
-	conn_info.Add(center.ConnInfo{40000, 2, 2})
+	conn_info.Add(center.ConnInfo{Userid: 10000, Gateid: 1, Connid: 1})
+	conn_info.Add(center.ConnInfo{Userid: 20000, Gateid: 1, Connid: 2})
+	conn_info.Add(center.ConnInfo{Userid: 30000, Gateid: 2, Connid: 1})
+	conn_info.Add(center.ConnInfo{Userid: 40000, Gateid: 2, Connid: 2})
 
 	var clients []io.ReadWriter
 	clients = append(clients, &bytes.Buffer{})
@@ -26,7 +26,7 @@ func TestHandleDelConnInfoByGateid(t *testing.T) {
 		addClient(clients[i])
 	}
 
-	req := &center.DelConnInfoByGateidReq{1}
+	req := &center.DelConnInfoByGateidReq{Gateid: 1}
 	client := &bytes.Buffer{}
 	addClient(client)
 	HandleDelConnInfoByGateid(client, req)
@@ -57,8 +57,8 @@ func TestHandleDelConnInfoByGateid(t *testing.T) {
 		}
 	}
 
-	if conn_info.Exist(center.ConnInfo{10000, 1, 1}) ||
-		conn_info.Exist(center.ConnInfo{10000, 1, 2}) {
+	if conn_info.Exist(center.ConnInfo{Userid: 10000, Gateid: 1, Connid: 1}) ||
+		conn_info.Exist(center.ConnInfo{Userid: 10000, Gateid: 1, Connid: 2}) {
 		t.Errorf("del conn info by gateid fail")
 	}
 }

@@ -1,9 +1,10 @@
 package main
 
 import (
-	"chess/util/redis"
 	"fmt"
 	"time"
+
+	"github.com/gochenzl/chess/util/redis"
 )
 
 func main() {

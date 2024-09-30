@@ -7,7 +7,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/gochenzl/chess/codec"
 	"github.com/gochenzl/chess/common"

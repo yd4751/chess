@@ -12,7 +12,7 @@ import (
 	"github.com/gochenzl/chess/pb/center"
 	"github.com/gochenzl/chess/util/log"
 	"github.com/gochenzl/chess/util/rpc"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func sendGetAllConnInfoReq(conn net.Conn) error {
@@ -57,7 +57,7 @@ CREATE_CONN:
 			goto CREATE_CONN
 		}
 
-		log.Info("receive %s: %s", proto.MessageName(pbMsg), pbMsg.String())
+		log.Info("receive %s:", proto.MessageName(pbMsg))
 	}
 }
 

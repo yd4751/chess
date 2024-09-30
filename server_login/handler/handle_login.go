@@ -15,8 +15,8 @@ import (
 	"github.com/gochenzl/chess/server_login/config"
 	"github.com/gochenzl/chess/util/log"
 	"github.com/gochenzl/chess/util/redis_cli"
-	"github.com/golang/protobuf/proto"
-	"github.com/satori/uuid"
+	"github.com/satori/go.uuid"
+	"google.golang.org/protobuf/proto"
 )
 
 func HandleLogin(w http.ResponseWriter, req *http.Request) {

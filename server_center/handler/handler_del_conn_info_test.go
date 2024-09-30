@@ -7,11 +7,11 @@ import (
 	"github.com/gochenzl/chess/pb/center"
 	"github.com/gochenzl/chess/server_center/conn_info"
 	"github.com/gochenzl/chess/util/rpc"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func TestHandleDelConnInfo(t *testing.T) {
-	connInfo := center.ConnInfo{10000, 1, 1}
+	connInfo := center.ConnInfo{Userid: 10000, Gateid: 1, Connid: 1}
 	conn_info.InitTest()
 	conn_info.Add(connInfo)
 
@@ -23,7 +23,7 @@ func TestHandleDelConnInfo(t *testing.T) {
 		addClient(clients[i])
 	}
 
-	req := &center.DelConnInfoReq{1, 1}
+	req := &center.DelConnInfoReq{Gateid: 1, Connid: 1}
 	client := &bytes.Buffer{}
 	addClient(client)
 	HandleDelConnInfo(client, req)
@@ -49,7 +49,7 @@ func TestHandleDelConnInfo(t *testing.T) {
 		}
 
 		resp := pb.(*center.DelConnInfoNotify)
-		if *(resp.Info) != connInfo {
+		if resp.Info.String() != connInfo.String() {
 			t.Errorf("resp conn info")
 		}
 	}
@@ -58,7 +58,7 @@ func TestHandleDelConnInfo(t *testing.T) {
 		t.Errorf("del conn info fail")
 	}
 
-	req = &center.DelConnInfoReq{1, 1}
+	req = &center.DelConnInfoReq{Gateid: 1, Connid: 1}
 	HandleDelConnInfo(client, req)
 
 	pb, err = rpc.DecodePb(client)
